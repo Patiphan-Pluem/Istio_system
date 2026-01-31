@@ -43,6 +43,7 @@ spec:
         # (ต้อง escape . ด้วย \. ในชื่อ parameter)
         - name: global.nodeSelector.node-role\.kubernetes\.io/control-plane
           value: "true"
+          forceString: true # บังคับให้ส่งเป็น String เพื่อแก้ปัญหา json unmarshal bool
   destination:
     server: https://kubernetes.default.svc
     namespace: istio-system
@@ -79,6 +80,7 @@ spec:
         # บังคับให้ Gateway รันบน Cloud (Master) เพื่อรับ Traffic จาก AWS LB
         - name: nodeSelector.node-role\.kubernetes\.io/control-plane
           value: "true"
+          forceString: true # บังคับให้ส่งเป็น String
         # เปิด Service type LoadBalancer เพื่อรับ IP จริง
         - name: service.type
           value: LoadBalancer
