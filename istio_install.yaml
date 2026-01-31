@@ -50,8 +50,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
   ignoreDifferences:
     - group: admissionregistration.k8s.io
       kind: ValidatingWebhookConfiguration
@@ -75,6 +73,9 @@ spec:
     targetRevision: 1.24.1
     helm:
       parameters:
+        # บังคับชื่อ Deployment ให้เป็น istio-ingress แน่นอน (แก้ปัญหา Not found)
+        - name: fullnameOverride
+          value: istio-ingress
         # บังคับให้ Gateway รันบน Cloud (Master) เพื่อรับ Traffic จาก AWS LB
         - name: nodeSelector.node-role\.kubernetes\.io/control-plane
           value: "true"
