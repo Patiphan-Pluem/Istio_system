@@ -21,6 +21,13 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+  # เพิ่มส่วนนี้เพื่อแก้ปัญหา OutOfSync ของ Validator
+  ignoreDifferences:
+    - group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
+      jsonPointers:
+        - /webhooks/0/clientConfig/caBundle # Istiod จะแก้ค่านี้เองอัตโนมัติ
+        - /webhooks/0/failurePolicy         # บางทีค่า Default ไม่ตรงกัน
 
 ---
 # -----------------------------------------------------------
